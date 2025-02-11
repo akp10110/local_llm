@@ -7,3 +7,6 @@ Or by going to https://ollama.com/download and manually installing the app (\*\*
 
 ollama --version
 ollama version is 0.5.7 --displayed on console
+
+Which Deepseek version on Macbook M1 Pro 16GB
+https://www.reddit.com/r/DeepSeek/comments/1iebv3z/deepseekr1_test_on_m1_macbook_pro_16_gb/
