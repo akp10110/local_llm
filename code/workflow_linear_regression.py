@@ -2,6 +2,8 @@ import torch
 from torch import nn
 import matplotlib.pyplot as plt
 
+from classes import LinearRegressionModel
+
 # Create known parameters
 weight = 0.5
 bias = 0.8
@@ -10,7 +12,7 @@ bias = 0.8
 start = 0
 end = 1
 step = 0.01
-X = torch.arange(start, end, step)
+X = torch.arange(start, end, step).unsqueeze(dim=1)
 y = weight * X + bias
 
 print(f"X = ", X)
@@ -46,6 +48,18 @@ def plot_predictions(train_data = X_training_set,
     # Show the legend
     plt.legend(prop={"size": 12})
 
-plot_predictions();    
+# Create a random seed
+torch.manual_seed(11)
+
+# Create an instance of the model
+model_0 = LinearRegressionModel.LinearRegressionModel()
+print(model_0.state_dict())
+
+with torch.inference_mode():
+    y_predictions_set = model_0(X_test_set)
+print(y_predictions_set)
+
+
+plot_predictions(predictions=y_predictions_set);    
 print("Stop")
 
