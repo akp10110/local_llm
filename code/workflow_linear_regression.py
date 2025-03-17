@@ -69,6 +69,11 @@ optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.01)
 epochs = 165
 print(f"Original Parameters = {weight, bias}")
 
+# Tracking the values
+epoch_count = []
+training_loss_values = []
+test_loss_values = []
+
 # Step 0: Loop through the data
 for epoch in range(epochs):
     # Set the model to training mode
@@ -105,9 +110,23 @@ for epoch in range(epochs):
     print(f"Epoch: {epoch}, Loss: {loss}, Test Loss: {test_loss}")
     print(f"New Parameters = {model_0.state_dict()}")
 
+    # Update the values
+    epoch_count.append(epoch)
+    training_loss_values.append(loss.detach().numpy())
+    test_loss_values.append(test_loss.detach().numpy())
+
 # New Prediction
 with torch.inference_mode():
     y_predictions_set_new = model_0(X_test_set)
 
 plot_predictions(predictions=y_predictions_set_new);    
 print("Stop 1")
+
+# Plot the loss value curve
+plt.plot(epoch_count, training_loss_values, label = "Training Loss Values")
+plt.plot(epoch_count, test_loss_values, label = "Test Loss Values")
+plt.title("Training and Test Loss Curves")
+plt.ylabel("Loss")
+plt.xlabel("Epoch")
+plt.legend()
+print("Stop 2")
