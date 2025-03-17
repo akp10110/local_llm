@@ -55,11 +55,47 @@ torch.manual_seed(11)
 model_0 = LinearRegressionModel.LinearRegressionModel()
 print(model_0.state_dict())
 
+# Original Prediction
 with torch.inference_mode():
     y_predictions_set = model_0(X_test_set)
-print(y_predictions_set)
-
-
 plot_predictions(predictions=y_predictions_set);    
 print("Stop")
 
+# Setup Loss function and Optimizer
+loss_fn = torch.nn.L1Loss()
+optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.01)
+
+### Training loop
+epochs = 100
+print(f"Original Parameters = {weight, bias}")
+
+# Step 0: Loop through the data
+for epoch in range(epochs):
+    # Set the model to training mode
+    model_0.train()
+
+    # Step 1. Forward pass
+    y_predictions_set = model_0(X_training_set)
+
+    # Step 2: Calculate the loss
+    loss = loss_fn(y_predictions_set, y_training_set)
+
+    # Step 3: Optimiser zero grad
+    optimizer.zero_grad()
+
+    # Step 4: Perform back propagation
+    loss.backward()
+
+    # Step 5: Step the optimiser - perform gradient descent
+    optimizer.step()
+
+    print(f"Loss = {loss}")
+    print(f"New Parameters = {model_0.state_dict()}")
+
+
+# New Prediction
+with torch.inference_mode():
+    y_predictions_set_new = model_0(X_test_set)
+
+plot_predictions(predictions=y_predictions_set_new);    
+print("Stop 1")
