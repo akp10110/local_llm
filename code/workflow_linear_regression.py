@@ -49,7 +49,7 @@ def plot_predictions(train_data = X_training_set,
     plt.legend(prop={"size": 12})
 
 # Create a random seed
-torch.manual_seed(11)
+torch.manual_seed(21)
 
 # Create an instance of the model
 model_0 = LinearRegressionModel.LinearRegressionModel()
@@ -66,7 +66,7 @@ loss_fn = torch.nn.L1Loss()
 optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.01)
 
 ### Training loop
-epochs = 100
+epochs = 165
 print(f"Original Parameters = {weight, bias}")
 
 # Step 0: Loop through the data
@@ -92,6 +92,18 @@ for epoch in range(epochs):
     print(f"Loss = {loss}")
     print(f"New Parameters = {model_0.state_dict()}")
 
+    ### Testing
+    model_0.eval()
+    with torch.inference_mode():
+        # Step 1: Do forward pass
+        test_prediction_set = model_0(X_test_set)
+
+        # Step 2: Calculate the loss
+        test_loss = loss_fn(test_prediction_set, y_test_set)
+
+    # Print what's happening
+    print(f"Epoch: {epoch}, Loss: {loss}, Test Loss: {test_loss}")
+    print(f"New Parameters = {model_0.state_dict()}")
 
 # New Prediction
 with torch.inference_mode():
