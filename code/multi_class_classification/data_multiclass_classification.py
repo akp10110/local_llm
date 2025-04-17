@@ -7,20 +7,20 @@ from sklearn.model_selection import train_test_split
 NUM_SAMPLES = 1000
 NUM_CLASSES = 4
 NUM_FEATURES = 2
-RANDOM_SEED = 42
+RANDOM_SEED = 21
 
 # 1. Create multi-class data
 X_blob, y_blob = make_blobs(
     n_samples=NUM_SAMPLES, 
     n_features=NUM_FEATURES, 
     centers=NUM_CLASSES,
-    cluster_std=1.95,
+    cluster_std=1.35,
     random_state=RANDOM_SEED
 )
 
 # 2. Turn data into tensors
 X_blob = torch.from_numpy(X_blob).type(torch.float)
-y_blob = torch.from_numpy(y_blob).type(torch.float)
+y_blob = torch.from_numpy(y_blob).type(torch.LongTensor)
 
 # 3. Split into train and test
 X_blob_train, X_blob_test, y_blob_train, y_blob_test = train_test_split(X_blob,
