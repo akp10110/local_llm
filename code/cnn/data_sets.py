@@ -5,6 +5,7 @@ import torchvision
 from torchvision import datasets
 from torchvision import transforms
 from torchvision.transforms import ToTensor
+from torch.utils.data import DataLoader
 
 import matplotlib.pyplot as plt
 
@@ -41,3 +42,21 @@ for i in range(1, rows*cols + 1):
     plt.axis(False)
 
 print(random_index)
+
+# Setup batch size hyper parameter
+BATCH_SIZE = 32
+
+# Turn Datasets to Iterables (Batches)
+train_dataloader = DataLoader(
+    dataset=train_data,
+    batch_size=BATCH_SIZE,
+    shuffle=True
+)
+
+test_dataloader = DataLoader(
+    dataset=test_data,
+    batch_size=BATCH_SIZE,
+    shuffle=False
+)
+
+train_features_batch, train_labels_batch = next(iter(train_dataloader))
