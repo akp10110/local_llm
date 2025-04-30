@@ -78,7 +78,7 @@ for epoch in tqdm(range(epochs)):
             test_pred_labels = test_pred.argmax(dim=1)
 
             # Calculate the loss/accuracy
-            test_loss = loss_fn(test_pred, y_test)
+            test_loss += loss_fn(test_pred, y_test)
             test_accuracy += accuracy_fn(y_true=y_test, 
                                     y_pred=test_pred_labels)
             
