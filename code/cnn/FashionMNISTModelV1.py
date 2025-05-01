@@ -1,6 +1,12 @@
 from torch import nn
+import sys
+import os
+# Add parent directory to path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import helpers
 
-class FashionMNISTModelV0(nn.Module):
+
+class FashionMNISTModelV1(nn.Module):
     def __init__(self, input_features, output_features, hidden_units, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.linear_layer_stack = nn.Sequential(
