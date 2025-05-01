@@ -105,3 +105,4 @@ model_0_results = helpers.eval_model(model=model_0,
                                      accuracy_fn=accuracy_fn)
 
 print(model_0_results)
+# {'model_name': 'FashionMNISTModelV0', 'model_loss': 0.479365736246109, 'model_acc': 83.33666134185303}

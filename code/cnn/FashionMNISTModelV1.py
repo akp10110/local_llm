@@ -14,7 +14,7 @@ class FashionMNISTModelV1(nn.Module):
             nn.Linear(in_features=input_features, out_features=hidden_units),
             nn.ReLU(),
             nn.Linear(in_features=hidden_units, out_features=output_features),
-            nn.ReLu()
+            nn.ReLU()
         )
 
     def forward(self, x):
