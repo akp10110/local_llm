@@ -4,6 +4,11 @@ from torch import nn
 from timeit import default_timer as timer
 from tqdm.auto import tqdm
 import data_sets as data
+import sys
+import os
+# Add parent directory to path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import helpers
 
 model_0 = FashionMNISTModelV0.FashionMNISTModelV0(
     input_features=784, # this is 28 * 28 - the lenght and width in pixels for the images
@@ -93,3 +98,11 @@ for epoch in tqdm(range(epochs)):
 
 train_time_end = timer()
 total_train_time_model_0 = print_train_time(start=train_time_start, end=train_time_end)
+
+model_0_results = helpers.eval_model(model=model_0,
+                                     data_loader=data.test_dataloader,
+                                     loss_fn=loss_fn,
+                                     accuracy_fn=accuracy_fn)
+
+print(model_0_results)
+# {'model_name': 'FashionMNISTModelV0', 'model_loss': 0.479365736246109, 'model_acc': 83.33666134185303}
