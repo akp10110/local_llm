@@ -95,3 +95,15 @@ def model_testing(model: torch.nn.Module,
         # Print out what's happening
         print(f"Test loss: {test_loss:.5f} | Test accuracy: {test_accuracy:.2f}%\n")
     
+
+# Accuracy function - what % does our model get right?
+def accuracy_fn(y_true, y_pred):
+    correct = torch.eq(y_true, y_pred).sum().item()
+    accuracy = (correct/len(y_pred))*100
+    return accuracy
+
+
+def print_train_time(start: float, end: float):
+    total_time =  end - start
+    print(f"Train time - {total_time:.3f} seconds")
+    return total_time

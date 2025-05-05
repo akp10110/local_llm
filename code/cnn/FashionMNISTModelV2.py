@@ -51,8 +51,6 @@ class FashionMNISTModelV2(nn.Module):
 
     def forward(self, x):
         block_1_output = self.conv_block_1(x)
-        print(block_1_output.shape)
         block_2_output = self.conv_block_2(block_1_output)
-        print(block_2_output.shape)
         final_output = self.classifier(block_2_output)
         return final_output
