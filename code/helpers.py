@@ -1,4 +1,5 @@
 import torch
+import matplotlib.pyplot as plt
 
 # import sys
 # import os
@@ -107,3 +108,62 @@ def print_train_time(start: float, end: float):
     total_time =  end - start
     print(f"Train time - {total_time:.3f} seconds")
     return total_time
+
+
+def make_predictions(model: torch.nn.Module, data: list):
+    pred_probs = []
+    model.eval()
+    with torch.inference_mode():
+        for sample in data:
+            sample = torch.unsqueeze(sample, dim=0)
+
+            #Forward Pass
+            logits = model(sample)
+
+            # Get prediction probability
+            pred_prob = torch.softmax(logits.squeeze(), dim=0)
+            pred_probs.append(pred_prob)
+
+    # Stack the pred_probs to turn list into a tensor
+    return torch.stack(pred_probs)
+
+
+def plot_predictions(
+        pred_probs: torch.nn.Module,
+        test_samples: list,
+        test_labels: list, 
+        class_names: list,
+        plt_main_title: str):
+    plt.figure(figsize=(13,9))
+    rows = 4
+    cols = 4
+
+    pred_labels = pred_probs.argmax(dim=1)
+
+    plt.suptitle(plt_main_title, fontsize=14)
+    #plt.tight_layout(rect=[0, 0, 1, 0.95])
+
+    for i, sample in enumerate(test_samples):
+        # Create a subplot
+        plt.subplot(rows, cols, i+1)
+
+        # Plot the target image
+        plt.imshow(sample.squeeze(), cmap="gray")
+
+        # Find the prediction label (in text form, e.g. "Sandal")
+        pred_label = class_names[pred_labels[i]]
+
+        # Get the truth label (in text form, e.g. "T-shirt")
+        truth_label = class_names[test_labels[i]] 
+
+        # Create the title text of the plot
+        title_text = f"Pred: {pred_label} | Truth: {truth_label}"
+        
+        # Check for equality and change title colour accordingly
+        if pred_label == truth_label:
+            plt.title(title_text, fontsize=10, c="g") # green text if correct
+        else:
+            plt.title(title_text, fontsize=10, c="r") # red text if wrong
+        plt.axis(False)
+
+    print("test")

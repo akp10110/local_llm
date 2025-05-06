@@ -9,6 +9,7 @@ import os
 # Add parent directory to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import helpers
+import random
 
 model_0 = FashionMNISTModelV0.FashionMNISTModelV0(
     input_features=784, # this is 28 * 28 - the lenght and width in pixels for the images
@@ -108,3 +109,18 @@ print(model_0_results)
 #### Results ####
 # Train time - 22.295 seconds
 # {'model_name': 'FashionMNISTModelV0', 'model_loss': 0.479365736246109, 'model_acc': 83.33666134185303}
+
+# Plot predictions
+for i in range (0,4): 
+    test_samples = []
+    test_labels = []
+    for sample, label in random.sample(list(data.test_data), k=16):
+        test_samples.append(sample)
+        test_labels.append(label)
+
+    pred_probs = helpers.make_predictions(model=model_0, data=test_samples)
+    helpers.plot_predictions(pred_probs=pred_probs, 
+                            test_samples=test_samples, 
+                            test_labels=test_labels, 
+                            class_names=data.class_names,
+                            plt_main_title=f"Training Time - {total_train_time_model_0:.2f} secs || Accuracy - {model_0_results['model_acc']:.2f}%")
