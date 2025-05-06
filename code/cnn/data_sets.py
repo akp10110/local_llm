@@ -25,6 +25,8 @@ test_data = datasets.FashionMNIST(
     target_transform=None
 )
 
+class_names = train_data.classes
+
 # print(len(train_data))
 # print(len(test_data))
 
