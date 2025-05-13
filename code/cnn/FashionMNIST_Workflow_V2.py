@@ -17,6 +17,10 @@ model_2 = FashionMNISTModelV2.FashionMNISTModelV2(
     hidden_units=10
 )
 
+# Count total trainable parameters
+total_params = sum(p.numel() for p in model_2.parameters() if p.requires_grad)
+print(f"Total trainable parameters: {total_params}")
+
 # Create loss function and optimizer
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(params=model_2.parameters(), 
