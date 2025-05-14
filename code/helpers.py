@@ -148,6 +148,7 @@ def plot_predictions(
         plt.subplot(rows, cols, i+1)
 
         # Plot the target image
+        sample = sample.permute(1, 2, 0)
         plt.imshow(sample.squeeze(), cmap="gray")
 
         # Find the prediction label (in text form, e.g. "Sandal")
@@ -165,5 +166,6 @@ def plot_predictions(
         else:
             plt.title(title_text, fontsize=10, c="r") # red text if wrong
         plt.axis(False)
+
 
     print("test")
