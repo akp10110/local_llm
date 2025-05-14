@@ -60,8 +60,6 @@ model_0_results = helpers.eval_model(model=model_0,
 
 print(model_0_results)
 #### Results ####
-# Train time - 134.766 seconds
-# {'model_name': 'FashionMNISTModelV2', 'model_loss': 0.335775226354599, 'model_acc': 87.8694089456869}
 
 # Plot predictions
 for i in range (0,4): 
