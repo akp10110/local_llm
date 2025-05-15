@@ -10,6 +10,7 @@ import os
 # Add parent directory to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import helpers
+from datetime import datetime
 
 model_0 = TinyVGGModelV0.TinyVGGModelV0(
     input_features=3, # color channels
@@ -60,6 +61,11 @@ model_0_results = helpers.eval_model(model=model_0,
 
 print(model_0_results)
 #### Results ####
+
+##### Save the model #####
+timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+model_path = f"trained_models/tinyvgg__epochs_10__opt_adam__pizza_steak_sushi_100percent_{timestamp}.pth"
+torch.save(model_0.state_dict(), model_path)
 
 # Plot predictions
 for i in range (0,4): 

@@ -6,7 +6,7 @@ from pathlib import Path
 
 # Images data path
 data_path = Path("data/")
-image_path = data_path / "pizza_steak_sushi_20_percent"
+image_path = data_path / "pizza_steak_sushi_100_percent"
 train_dir = image_path / "train"
 test_dir = image_path / "test"
 

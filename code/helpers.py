@@ -168,4 +168,3 @@ def plot_predictions(
         plt.axis(False)
 
 
-    print("test")
